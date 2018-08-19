@@ -1,6 +1,5 @@
 package adstxt
 
-// Get Ads.txt file from specified domain
 import (
 	"bufio"
 	"bytes"

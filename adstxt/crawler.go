@@ -25,7 +25,7 @@ const (
 
 // HTTP crawler settings
 const (
-	userAgent      = "+https://github.com/tzafrirben/adstxt-parser"
+	userAgent      = "+https://github.com/tzafrirben/go-adstxt-crawler"
 	requestTimeout = 30
 )
 
