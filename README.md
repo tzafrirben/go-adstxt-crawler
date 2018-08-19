@@ -49,11 +49,12 @@ for _, w := range rec.Warnings { ... }
 import "github.com/tzafrirben/go-adstxt-crawler/adstxt" and you can use adstxt library in your code
 
 # ToDo
-Adstxt library still does not support Async crawling. The next version should have a method for scanning multiple domains simultaneously (vs the adstxt.Get method that only scan single Ads.txt file
+- Adstxt library still does not support Async crawling. The next version should have a method for scanning multiple domains simultaneously (vs the adstxt.Get method that only scan single Ads.txt file
+- robots.txt file on remote host is ignored by crawler, a good practice will be to scan this file first (as specified in Ads.txt specification)
 
 ## LICENSE
 
 MIT
 
 ## Author
-Tzafrir Ben Ami (a.k.a. tzafrirben)
+[Tzafrir Ben Ami](https://github.com/tzafrirben) (a.k.a. tzafrirben)
