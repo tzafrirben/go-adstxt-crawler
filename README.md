@@ -5,14 +5,14 @@ This library provides a mechanism for obtaining and parsing Ads.txt file from we
 
 # Motivation
 There are some nice online tools for crawling and validating Ads.txt files (for example [Ads.txt validator](https://adstxt.adnxs.com) from AppNexus or another [Ads.txt Validator](https://www.adstxtvalidator.com) by AdReform) that follows [IAB Ads.txt Specification Version 1.0.1](https://iabtechlab.com/wp-content/uploads/2017/09/IABOpenRTB_Ads.txt_Public_Spec_V1-0-1.pdf). 
-However, you cannot easily use those tools for massive site crawling since they do not provide free API.
+However, you cannot easily use those tools for massive site scanning since they do not provide free API.
 
-There are also few open source projects I've found Github for crawling and parsing Ads.txt files. But at least the ones that I've were not fully competible with [IAB Ads.txt Specification Version 1.0.1](https://iabtechlab.com/wp-content/uploads/2017/09/IABOpenRTB_Ads.txt_Public_Spec_V1-0-1.pdf). You can use them for crawling and parsing Ads.txt files but were lacking validation mechanism to ensure that Ads.txt format is correct and follows IAB specification.
+There are also few open source projects I've found Github for scanning Ads.txt files, but at least the ones that I've tried were not fully competible with latest [Ads.txt Spec](https://iabtechlab.com/wp-content/uploads/2017/09/IABOpenRTB_Ads.txt_Public_Spec_V1-0-1.pdf). You can use them, of course, and they would do a decent job, but they are lacking a good validation mechanism to ensure that Ads.txt format is correct and follows the official spec.
 
 This Ads.txt library allows massive sites crawling, and follows [IAB Ads.txt Specification Version 1.0.1](https://iabtechlab.com/wp-content/uploads/2017/09/IABOpenRTB_Ads.txt_Public_Spec_V1-0-1.pdf) to validate that the Ads.txt file is valid
 
 # Examples
-You can see main.go file for a short example of the adstxt library 2 main methods: adstxt.Get to fetch and parse Ads.txt file from the remote host, or adstxt.ParseBody that can be used to parse the content of a local Ads.txt file
+You can see [main.go](https://github.com/tzafrirben/go-adstxt-crawler/blob/master/main.go) file for a short example of the adstxt library 2 main methods: adstxt.Get to fetch and parse Ads.txt file from the remote host, or adstxt.ParseBody that can be used to parse the content of a local Ads.txt file
 
 ```
 req, err := adstxt.NewRequest("example.com")
