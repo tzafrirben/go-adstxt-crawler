@@ -6,7 +6,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	// add test values
+	// setup: add test values
 	adSystems[10000] = newAdSystem(10000, "greenadexchange", "greenadexchange.com")
 	adSystemDomains["greenadexchange.com"] = newAdSystemDomain("greenadexchange.com", 10000)
 

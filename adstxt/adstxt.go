@@ -10,7 +10,7 @@ import (
 // Get crawl and parse Ads.txt file from remote host based on Ads.txt Specification Version 1.0.1
 // https://iabtechlab.com/wp-content/uploads/2017/09/IABOpenRTB_Ads.txt_Public_Spec_V1-0-1.pdf
 func Get(req *Request) (*Response, error) {
-	c := newCrawler(req.URL)
+	c := newCrawler()
 
 	// send Ads.txt request to remote server unit and parse response. In case of redirect, follow redirect URL and read Ads.txt
 	// from the source of redirect
@@ -37,7 +37,7 @@ func Get(req *Request) (*Response, error) {
 			return nil, fmt.Errorf(errHTTPClientError, res.Status, req.Domain, req.URL)
 		// the server response indicates Success (HTTP 2xx Status Code,) read and parse the content of the Ads.txt file
 		case res.StatusCode == 200:
-			body, err := c.readyResponseBody(req, res)
+			body, err := c.parseBody(req, res)
 			if err != nil {
 				return nil, err
 			}
@@ -50,6 +50,7 @@ func Get(req *Request) (*Response, error) {
 
 			// Ads.txt response
 			r := &Response{
+				Request: req,
 				Records: records,
 				// Ads.txt file default expiration date is set to 7 days (secion 3.6 EXPIRATION of IAB Ads.txt specification)
 				Expires: time.Now().UTC().AddDate(0, 0, 7),

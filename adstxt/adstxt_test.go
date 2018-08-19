@@ -1,9 +1,44 @@
 package adstxt
 
 import (
+	"io"
+	"net/http"
+	"net/http/httptest"
 	"strings"
 	"testing"
 )
+
+// TestGet tesing fetch and parse Ads.txt file from remote host
+func TestGet(t *testing.T) {
+	// expected response
+	const expected = "greenadexchange.com,XF7342,DIRECT\nsubdomain=test.com"
+
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		io.WriteString(w, expected)
+		w.Header().Set("Content-Type", "text/plain")
+	}))
+	defer ts.Close()
+
+	// request mock
+	req, _ := NewRequest(ts.URL)
+
+	res, err := Get(req)
+	if err != nil {
+		t.Error(err)
+	}
+
+	if res.Request != req {
+		t.Errorf("Expected Ads.txt response to include pointer to the request")
+	}
+
+	if len(res.DataRecords) != 1 {
+		t.Errorf("Expected single DataReocrd but found [%d]", len(res.DataRecords))
+	}
+
+	if len(res.Variables) != 1 {
+		t.Errorf("Expected single Variable record but found [%d]", len(res.Variables))
+	}
+}
 
 // TestParseBody test paring []byte array into []Line array
 func TestParseBody(t *testing.T) {

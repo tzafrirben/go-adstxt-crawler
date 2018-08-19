@@ -17,6 +17,7 @@ type Records struct {
 // Response to an Ads.txt request: collection of Data\Variable records parsed from Ads.txt file and
 // file expiration date
 type Response struct {
+	*Request
 	*Records
 	Expires time.Time `json:"expires"` // Ads.txt file expiration date
 }

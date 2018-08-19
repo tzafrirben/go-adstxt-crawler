@@ -35,8 +35,8 @@ type crawler struct {
 	UserAgent string       // crawler UserAgent string
 }
 
-// NewCrawler Create new crawler to fetch Ads.txt files from remote hosts
-func newCrawler(adsTxtURL string) *crawler {
+// NewCrawler Create new crawler to fetch Ads.txt file from remote host
+func newCrawler() *crawler {
 	return &crawler{
 		client: &http.Client{
 			Timeout: time.Second * requestTimeout,
@@ -105,7 +105,7 @@ func (c *crawler) handleRedirect(req *Request, res *http.Response) (string, erro
 }
 
 // Read HTTP response body
-func (c *crawler) readyResponseBody(req *Request, res *http.Response) ([]byte, error) {
+func (c *crawler) parseBody(req *Request, res *http.Response) ([]byte, error) {
 	// The HTTP Content-type should be ‘text/plain’, and all other Content-types should be treated as
 	// an error and the content ignored
 	contentType := res.Header.Get("Content-Type")
