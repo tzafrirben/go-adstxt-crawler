@@ -36,3 +36,13 @@ for _, r := range rec.DataRecords { ... }
 for _, v := range rec.Variables { ... }
 for _, w := range rec.Warnings { ... } 
 ```
+
+# import as a Library
+import "github.com/tzafrirben/go-adstxt-crawler/adstxt"
+
+## LICENSE
+
+MIT
+
+## Author
+Tzafrir Ben Ami (a.k.a. tzafrirben)
