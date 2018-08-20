@@ -14,7 +14,7 @@ This Ads.txt library allows massive sites crawling, and follows [IAB Ads.txt Spe
 # Examples
 You can see [main.go](https://github.com/tzafrirben/go-adstxt-crawler/blob/master/main.go) file for a short example of the adstxt library 2 main methods: adstxt.Get to fetch and parse Ads.txt file from the remote host, or adstxt.ParseBody that can be used to parse the content of a local Ads.txt file
 
-```
+```go
 req, err := adstxt.NewRequest("example.com")
 if err != nil {
   log.Fatal(err)
@@ -30,7 +30,7 @@ for _, w := range res.Warnings { ... }
 ```
 
 You can also parse local Ads.txt file in a similar way
-```
+```go
 body, err := ioutil.ReadFile("/<path_to>/ads.txt")
 if err != nil {
   log.Fatal(err)
