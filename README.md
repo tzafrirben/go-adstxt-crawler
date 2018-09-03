@@ -12,7 +12,7 @@ There are also few open source projects I've found Github for scanning Ads.txt f
 This Ads.txt library allows massive sites crawling, and follows [IAB Ads.txt Specification Version 1.0.1](https://iabtechlab.com/wp-content/uploads/2017/09/IABOpenRTB_Ads.txt_Public_Spec_V1-0-1.pdf) to validate that the Ads.txt file is valid
 
 # Examples
-You can see [main.go](https://github.com/tzafrirben/go-adstxt-crawler/blob/master/main.go) file for a short example of the adstxt library 2 main methods: adstxt.Get to fetch and parse Ads.txt file from the remote host, or adstxt.ParseBody that can be used to parse the content of a local Ads.txt file
+You can see [examples](https://github.com/tzafrirben/go-adstxt-crawler/tree/master/examples) folder for a short example of adstxt library 3 main methods: adstxt.Get to fetch and parse single Ads.txt file from a remote host, adstxt.GetMultiple to fetch and parse multiple Ads.txt files form different hosts or adstxt.ParseBody that can be used to parse the content of a local Ads.txt file
 
 ```go
 req, err := adstxt.NewRequest("example.com")
@@ -27,6 +27,30 @@ if err != nil {
 for _, r := range res.DataRecords { ... }
 for _, v := range res.Variables { ... }
 for _, w := range res.Warnings { ... }
+```
+
+Or get Ads.txt files for multiple hosts simultaneously
+```go
+// define handler function to handle Ads.txt response
+h := func(req *Request, res *Response, err error) {
+  for _, r := range res.DataRecords { ... }
+  for _, v := range res.Variables { ... }
+  for _, w := range res.Warnings { ... }
+}
+
+// collection of domains to validate
+domains := []string{
+  "http://example.com",
+  "http://test.com",
+}
+
+requests := make([]*adstxt.Request, len(domains))
+for index, d := range domains {
+  r, _ := adstxt.NewRequest(d)
+  requests[index] = r
+}
+
+adstxt.GetMultiple(requests, adstxt.HandlerFunc(h))
 ```
 
 You can also parse local Ads.txt file in a similar way
