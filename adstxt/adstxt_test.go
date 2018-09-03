@@ -8,6 +8,40 @@ import (
 	"testing"
 )
 
+// TestGetMultiple tesing fetch and parse multile Ads.txt files from remote hosts
+func TestGetMultiple(t *testing.T) {
+	h := func(req *Request, res *Response, err error) {
+		if res.Request != req {
+			t.Errorf("Expected Ads.txt response to include pointer to the request")
+		}
+
+		if len(res.DataRecords) != 1 {
+			t.Errorf("Expected single DataReocrd but found [%d]", len(res.DataRecords))
+		}
+
+		if len(res.Variables) != 1 {
+			t.Errorf("Expected single Variable record but found [%d]", len(res.Variables))
+		}
+	}
+
+	// expected response
+	const expected = "greenadexchange.com,XF7342,DIRECT\nsubdomain=test.com"
+
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		io.WriteString(w, expected)
+		w.Header().Set("Content-Type", "text/plain")
+	}))
+	defer ts.Close()
+
+	// request mock
+	req, _ := NewRequest(ts.URL)
+
+	requests := make([]*Request, 1)
+	requests[0] = req
+
+	GetMultiple(requests, HandlerFunc(h))
+}
+
 // TestGet tesing fetch and parse Ads.txt file from remote host
 func TestGet(t *testing.T) {
 	// expected response
