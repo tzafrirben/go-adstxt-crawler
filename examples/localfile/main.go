@@ -2,9 +2,10 @@ package main
 
 import (
 	"encoding/json"
-	"go-adstxt-crawler/adstxt"
 	"io/ioutil"
 	"log"
+
+	"github.com/tzafrirben/go-adstxt-crawler/adstxt"
 )
 
 func main() {
