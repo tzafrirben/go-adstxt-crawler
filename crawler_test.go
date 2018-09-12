@@ -31,7 +31,7 @@ func TestSendAndParseRquest(t *testing.T) {
 
 	defer res.Body.Close()
 
-	body, err := c.parseBody(req, res)
+	body, err := c.readBody(req, res)
 	if err != nil {
 		t.Error(err)
 	}

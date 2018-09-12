@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
+	"runtime"
 	"sync"
 	"time"
 )
@@ -38,7 +39,7 @@ func Get(req *Request) (*Response, error) {
 			return nil, fmt.Errorf(errHTTPClientError, res.Status, req.Domain, req.URL)
 		// the server response indicates Success (HTTP 2xx Status Code,) read and parse the content of the Ads.txt file
 		case res.StatusCode == 200:
-			body, err := c.parseBody(req, res)
+			body, err := c.readBody(req, res)
 			if err != nil {
 				return nil, err
 			}
@@ -74,20 +75,25 @@ func Get(req *Request) (*Response, error) {
 // GetMultiple crawl and parse multiple Ads.txt files from remote hosts based on Ads.txt Specification Version 1.0.1
 // https://iabtechlab.com/wp-content/uploads/2017/09/IABOpenRTB_Ads.txt_Public_Spec_V1-0-1.pdf
 func GetMultiple(req []*Request, h Handler) {
+	// For faster crawling, use new goroutine for each request and set waitgroup to wait for all goroutine to finish
 	var wg sync.WaitGroup
 	wg.Add(len(req))
 
+	// For a long list of requests, start a new goroutine for each request may allocate more memory than is available on the machine.
+	// To void it, set a limit on the number of requests we handle in parallel
+	guard := make(chan struct{}, runtime.NumCPU()*5)
+
 	// buffer of channels to handle response
 	for _, r := range req {
+		// block if guard channel is already filled, to avoid "too many" parallel requests at the same time
+		guard <- struct{}{}
+		// crawl and parse request
 		go func(r *Request) {
 			res, err := Get(r)
 			h.Handle(r, res, err)
-			// Decrement the counter when the goroutine completes.
+			<-guard
 			defer wg.Done()
 		}(r)
-		// Sleep is not mandatory, but since crawling remote hosts might take time we allow program to "sleep" before
-		// proccessing next request
-		time.Sleep(100 * time.Millisecond)
 	}
 
 	// Wait for all Requests to complete

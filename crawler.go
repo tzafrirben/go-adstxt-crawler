@@ -105,7 +105,7 @@ func (c *crawler) handleRedirect(req *Request, res *http.Response) (string, erro
 }
 
 // Read HTTP response body
-func (c *crawler) parseBody(req *Request, res *http.Response) ([]byte, error) {
+func (c *crawler) readBody(req *Request, res *http.Response) ([]byte, error) {
 	// The HTTP Content-type should be ‘text/plain’, and all other Content-types should be treated as
 	// an error and the content ignored
 	contentType := res.Header.Get("Content-Type")
