@@ -32,7 +32,7 @@ func handler(req *adstxt.Request, res *adstxt.Response, err error) {
 
 func showResults(r *adstxt.Records) {
 	if len(r.Warnings) > 0 {
-		log.Println("Warnings:")
+		log.Printf("Warnings: [%d]", len(r.Warnings))
 		for _, w := range r.Warnings {
 			j, _ := json.Marshal(w)
 			log.Println(string(j))
@@ -40,7 +40,7 @@ func showResults(r *adstxt.Records) {
 	}
 
 	if len(r.DataRecords) > 0 {
-		log.Println("Data Records:")
+		log.Printf("Data Records: [%d]", len(r.DataRecords))
 		for _, r := range r.DataRecords {
 			j, _ := json.Marshal(r)
 			log.Println(string(j))
@@ -48,7 +48,7 @@ func showResults(r *adstxt.Records) {
 	}
 
 	if len(r.Variables) > 0 {
-		log.Println("Variables:")
+		log.Printf("Variables: [%d]", len(r.Variables))
 		for _, v := range r.Variables {
 			j, _ := json.Marshal(v)
 			log.Println(string(j))

@@ -124,7 +124,6 @@ func (c *crawler) readBody(req *Request, res *http.Response) ([]byte, error) {
 
 // parse Ads.txt file expiration date from the response Expires header
 func (c *crawler) parseExpires(res *http.Response) (time.Time, error) {
-	// get Expires from http header
 	expires := res.Header.Get("Expires")
 	if len(expires) == 0 {
 		return time.Time{}, fmt.Errorf("Failed to parse expires from response header")

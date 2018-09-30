@@ -14,10 +14,8 @@ import (
 func Get(req *Request) (*Response, error) {
 	c := newCrawler()
 
-	// send Ads.txt request to remote server unit and parse response. In case of redirect, follow redirect URL and read Ads.txt
-	// from the source of redirect
+	// send Ads.txt request to remote server and parse response
 	for {
-		// Send request to remote server
 		res, err := c.sendRequest(req)
 		if err != nil {
 			return nil, err
@@ -27,7 +25,7 @@ func Get(req *Request) (*Response, error) {
 		// handle Ads.txt response
 		switch {
 		// the server response indicates redirect (301, 302, 307 status codes), follow redirect and read Ads.txt
-		// file from the   source of the redirect
+		// file from the source of the redirect
 		case 300 <= res.StatusCode && res.StatusCode < 400:
 			redirect, err := c.handleRedirect(req, res)
 			if err != nil {
@@ -37,7 +35,7 @@ func Get(req *Request) (*Response, error) {
 		// client error in remote server response
 		case 400 <= res.StatusCode && res.StatusCode < 500:
 			return nil, fmt.Errorf(errHTTPClientError, res.Status, req.Domain, req.URL)
-		// the server response indicates Success (HTTP 2xx Status Code,) read and parse the content of the Ads.txt file
+		// the server response indicates Success (HTTP Status Code 200): read and parse the content of the Ads.txt file
 		case res.StatusCode == 200:
 			body, err := c.readBody(req, res)
 			if err != nil {
