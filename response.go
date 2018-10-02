@@ -1,6 +1,8 @@
 package adstxt
 
 import (
+	"encoding/json"
+	"fmt"
 	"strings"
 	"time"
 )
@@ -72,4 +74,33 @@ func (r *Records) parseRecord(index int, txt string) {
 		w := &Warning{Text: txt, Index: index, Level: HighSevirity, Message: "could not parse this line"}
 		r.Warnings = append(r.Warnings, w)
 	}
+}
+
+// custom "toString" method
+func (r *Records) String() string {
+	str := []string{}
+	if len(r.Warnings) > 0 {
+		str = append(str, fmt.Sprintf("Warnings: [%d]", len(r.Warnings)))
+		for _, w := range r.Warnings {
+			j, _ := json.Marshal(w)
+			str = append(str, string(j))
+		}
+	}
+
+	if len(r.DataRecords) > 0 {
+		str = append(str, fmt.Sprintf("Data Records: [%d]", len(r.DataRecords)))
+		for _, r := range r.DataRecords {
+			j, _ := json.Marshal(r)
+			str = append(str, string(j))
+		}
+	}
+
+	if len(r.Variables) > 0 {
+		str = append(str, fmt.Sprintf("Variables: [%d]", len(r.Variables)))
+		for _, v := range r.Variables {
+			j, _ := json.Marshal(v)
+			str = append(str, string(j))
+		}
+	}
+	return strings.Join(str, "\n")
 }

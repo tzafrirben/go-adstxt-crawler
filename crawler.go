@@ -38,11 +38,16 @@ type crawler struct {
 // NewCrawler Create new crawler to fetch Ads.txt file from remote host
 func newCrawler() *crawler {
 	return &crawler{
+		// Create client with required custom parameters.
+		// Options: Disable keep-alives, 30sec n/w call timeout, do not follow redirects by default
 		client: &http.Client{
-			Timeout: time.Second * requestTimeout,
 			CheckRedirect: func(req *http.Request, via []*http.Request) error {
 				return http.ErrUseLastResponse
 			},
+			Transport: &http.Transport{
+				DisableKeepAlives: true,
+			},
+			Timeout: time.Second * requestTimeout,
 		},
 		UserAgent: userAgent,
 	}

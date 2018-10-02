@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"log"
 
 	"github.com/tzafrirben/go-adstxt-crawler/adstxt"
@@ -26,32 +25,6 @@ func handler(req *adstxt.Request, res *adstxt.Response, err error) {
 	if err != nil {
 		log.Println(err)
 	} else {
-		showResults(res.Records)
-	}
-}
-
-func showResults(r *adstxt.Records) {
-	if len(r.Warnings) > 0 {
-		log.Printf("Warnings: [%d]", len(r.Warnings))
-		for _, w := range r.Warnings {
-			j, _ := json.Marshal(w)
-			log.Println(string(j))
-		}
-	}
-
-	if len(r.DataRecords) > 0 {
-		log.Printf("Data Records: [%d]", len(r.DataRecords))
-		for _, r := range r.DataRecords {
-			j, _ := json.Marshal(r)
-			log.Println(string(j))
-		}
-	}
-
-	if len(r.Variables) > 0 {
-		log.Printf("Variables: [%d]", len(r.Variables))
-		for _, v := range r.Variables {
-			j, _ := json.Marshal(v)
-			log.Println(string(j))
-		}
+		log.Println(res.Records)
 	}
 }
