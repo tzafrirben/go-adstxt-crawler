@@ -9,7 +9,7 @@ import (
 func main() {
 
 	// fetch and download Ads.txt file from remote host
-	req, err := adstxt.NewRequest("http://fark.com")
+	req, err := adstxt.NewRequest("http://example.com")
 	if err != nil {
 		log.Fatal(err)
 	}
