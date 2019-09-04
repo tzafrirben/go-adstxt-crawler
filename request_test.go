@@ -22,10 +22,10 @@ func TestNewRequest(t *testing.T) {
 	for k, v := range domains {
 		r, _ := NewRequest(k)
 		if r.URL != v.URL {
-			t.Errorf("Expected Ads.txt for [%s] to be [%s] but recieved [%s]", k, v.URL, r.URL)
+			t.Errorf("Expected Ads.txt for [%s] to be [%s] but received [%s]", k, v.URL, r.URL)
 		}
 		if r.Domain != v.Domain {
-			t.Errorf("Expected Domain for [%s] to be [%s] but recieved [%s]", k, v.Domain, r.Domain)
+			t.Errorf("Expected Domain for [%s] to be [%s] but received [%s]", k, v.Domain, r.Domain)
 		}
 	}
 }

@@ -42,7 +42,7 @@ func Get(req *Request) (*Response, error) {
 				return nil, err
 			}
 
-			// return new resposne
+			// return new response
 			records, err := ParseBody(body)
 			if err != nil {
 				return nil, err
@@ -101,7 +101,7 @@ func GetMultiple(req []*Request, h Handler) {
 // ParseBody parse Ads.txt file based on Ads.txt Specification Version 1.0.1
 // https://iabtechlab.com/wp-content/uploads/2017/09/IABOpenRTB_Ads.txt_Public_Spec_V1-0-1.pdf
 func ParseBody(b []byte) (*Records, error) {
-	// use custom split function to sunpport different end-of-line marker (CR, CRLF etc)
+	// use custom split function to support different end-of-line marker (CR, CRLF etc)
 	split := func(data []byte, atEOF bool) (advance int, token []byte, err error) {
 		if atEOF && len(data) == 0 {
 			return 0, nil, nil

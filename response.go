@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-// Records holds collection of Ads.txt records parsed from an Ads.txt file, in additon to
+// Records holds collection of Ads.txt records parsed from an Ads.txt file, in addition to
 // errors found during Ads.txt file parsing
 type Records struct {
 	DataRecords []*DataRecord `json:"dataRecords"`
@@ -62,7 +62,7 @@ func (r *Records) parseRecord(index int, txt string) {
 			r.DataRecords = append(r.DataRecords, dr)
 		}
 	} else if strings.Index(line, "=") != -1 && strings.Count(line, "=") == 1 {
-		v, w := parseVarialbe(txt)
+		v, w := parseVariable(txt)
 		if w != nil {
 			w.Index = index
 			w.Text = txt
@@ -71,7 +71,7 @@ func (r *Records) parseRecord(index int, txt string) {
 			r.Variables = append(r.Variables, v)
 		}
 	} else {
-		w := &Warning{Text: txt, Index: index, Level: HighSevirity, Message: "could not parse this line"}
+		w := &Warning{Text: txt, Index: index, Level: HighSeverity, Message: "could not parse this line"}
 		r.Warnings = append(r.Warnings, w)
 	}
 }

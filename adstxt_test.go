@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-// TestGetMultiple tesing fetch and parse multile Ads.txt files from remote hosts
+// TestGetMultiple testing fetch and parse multile Ads.txt files from remote hosts
 func TestGetMultiple(t *testing.T) {
 	h := func(req *Request, res *Response, err error) {
 		if res.Request != req {
@@ -16,7 +16,7 @@ func TestGetMultiple(t *testing.T) {
 		}
 
 		if len(res.DataRecords) != 1 {
-			t.Errorf("Expected single DataReocrd but found [%d]", len(res.DataRecords))
+			t.Errorf("Expected single DataRecord but found [%d]", len(res.DataRecords))
 		}
 
 		if len(res.Variables) != 1 {
@@ -42,7 +42,7 @@ func TestGetMultiple(t *testing.T) {
 	GetMultiple(requests, HandlerFunc(h))
 }
 
-// TestGet tesing fetch and parse Ads.txt file from remote host
+// TestGet testing fetch and parse Ads.txt file from remote host
 func TestGet(t *testing.T) {
 	// expected response
 	const expected = "greenadexchange.com,XF7342,DIRECT\nsubdomain=test.com"
@@ -66,7 +66,7 @@ func TestGet(t *testing.T) {
 	}
 
 	if len(res.DataRecords) != 1 {
-		t.Errorf("Expected single DataReocrd but found [%d]", len(res.DataRecords))
+		t.Errorf("Expected single DataRecord but found [%d]", len(res.DataRecords))
 	}
 
 	if len(res.Variables) != 1 {
@@ -135,7 +135,7 @@ func TestParseRecordsSuccess(t *testing.T) {
 	}
 
 	if len(res.Warnings) > 0 {
-		t.Errorf("Expected no warning when parsing lines, but recieved [%d] warnings", len(res.Warnings))
+		t.Errorf("Expected no warning when parsing lines, but received [%d] warnings", len(res.Warnings))
 	}
 }
 

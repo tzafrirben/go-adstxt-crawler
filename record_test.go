@@ -20,13 +20,13 @@ func TestParseDataRecordWith3Fields(t *testing.T) {
 		t.Errorf("Expected no parse warning when parsing [%s] [%v]", line, w)
 	}
 	if r.AdverterDomain != expected.AdverterDomain {
-		t.Errorf("Expected Adverter Domain for [%s] to be [%s] but recieved [%s]", line, expected.AdverterDomain, r.AdverterDomain)
+		t.Errorf("Expected Adverter Domain for [%s] to be [%s] but received [%s]", line, expected.AdverterDomain, r.AdverterDomain)
 	}
 	if r.PublisherAccountID != expected.PublisherAccountID {
-		t.Errorf("Expected Publisher Account Id for [%s] to be [%s] but recieved [%s]", line, expected.PublisherAccountID, r.PublisherAccountID)
+		t.Errorf("Expected Publisher Account Id for [%s] to be [%s] but received [%s]", line, expected.PublisherAccountID, r.PublisherAccountID)
 	}
 	if r.AccountType != expected.AccountType {
-		t.Errorf("Expected Account Type for [%s] to be [%s] but recieved [%s]", line, expected.AccountType, r.AccountType)
+		t.Errorf("Expected Account Type for [%s] to be [%s] but received [%s]", line, expected.AccountType, r.AccountType)
 	}
 }
 
@@ -46,16 +46,16 @@ func TestParseDateRecordWith4Fields(t *testing.T) {
 		t.Errorf("Expected no parse warnings when parsing [%s] [%v]", line, w)
 	}
 	if r.AdverterDomain != expected.AdverterDomain {
-		t.Errorf("Expected Adverter Domain for [%s] to be [%s] but recieved [%s]", line, expected.AdverterDomain, r.AdverterDomain)
+		t.Errorf("Expected Adverter Domain for [%s] to be [%s] but received [%s]", line, expected.AdverterDomain, r.AdverterDomain)
 	}
 	if r.PublisherAccountID != expected.PublisherAccountID {
-		t.Errorf("Expected Publisher Account Id for [%s] to be [%s] but recieved [%s]", line, expected.PublisherAccountID, r.PublisherAccountID)
+		t.Errorf("Expected Publisher Account Id for [%s] to be [%s] but received [%s]", line, expected.PublisherAccountID, r.PublisherAccountID)
 	}
 	if r.AccountType != expected.AccountType {
-		t.Errorf("Expected Account Type for [%s] to be [%s] but recieved [%s]", line, expected.AccountType, r.AccountType)
+		t.Errorf("Expected Account Type for [%s] to be [%s] but received [%s]", line, expected.AccountType, r.AccountType)
 	}
 	if r.CertAuthorityID != expected.CertAuthorityID {
-		t.Errorf("Expected Account Type for [%s] to be [%s] but recieved [%s]", line, expected.CertAuthorityID, r.CertAuthorityID)
+		t.Errorf("Expected Account Type for [%s] to be [%s] but received [%s]", line, expected.CertAuthorityID, r.CertAuthorityID)
 	}
 }
 
@@ -79,14 +79,14 @@ func TestParseDataRecordWithWrongNumberOfFields(t *testing.T) {
 // TestParseDataRecordAccountType test parsing DataRecord account type field
 func TestParseDataRecordAccountType(t *testing.T) {
 	// invalid accont type
-	line := "greenadexchange.com, XF7342, unknow"
+	line := "greenadexchange.com, XF7342, unknown"
 
 	r, w := parseDataRecord(line)
 	if w == nil {
 		t.Errorf("Expected parse warnings when parsing [%s] [%v]", line, w)
 	}
 
-	// case sensative account type
+	// case sensitive account type
 	line = "greenadexchange.com, XF7342, direct"
 	r, w = parseDataRecord(line)
 	if w != nil {
@@ -114,13 +114,13 @@ func TestParseDataRecordWithComment(t *testing.T) {
 	}
 
 	if r.AdverterDomain != expected.AdverterDomain {
-		t.Errorf("Expected Adverter Domain for [%s] to be [%s] but recieved [%s]", line, expected.AdverterDomain, r.AdverterDomain)
+		t.Errorf("Expected Adverter Domain for [%s] to be [%s] but received [%s]", line, expected.AdverterDomain, r.AdverterDomain)
 	}
 	if r.PublisherAccountID != expected.PublisherAccountID {
-		t.Errorf("Expected Publisher Account Id for [%s] to be [%s] but recieved [%s]", line, expected.PublisherAccountID, r.PublisherAccountID)
+		t.Errorf("Expected Publisher Account Id for [%s] to be [%s] but received [%s]", line, expected.PublisherAccountID, r.PublisherAccountID)
 	}
 	if r.AccountType != expected.AccountType {
-		t.Errorf("Expected Account Type for [%s] to be [%s] but recieved [%s]", line, expected.AccountType, r.AccountType)
+		t.Errorf("Expected Account Type for [%s] to be [%s] but received [%s]", line, expected.AccountType, r.AccountType)
 	}
 }
 
@@ -150,7 +150,7 @@ func TestParseDataRecordWithInvalidAdvertisingSystemName(t *testing.T) {
 	}
 }
 
-// TestParseDataRecordWithInvalidCertName test parsing Ads.txt data record line with in valid dertification authority
+// TestParseDataRecordWithInvalidCertName test parsing Ads.txt data record line with in valid certification authority
 func TestParseDataRecordWithInvalidCertName(t *testing.T) {
 	line := "greenadexchange.com,185,DIRECT,<invalid>"
 	r, w := parseDataRecord(line)
@@ -217,56 +217,56 @@ func TestDataRecordJsonDecode(t *testing.T) {
 	}
 
 	if r.AdverterDomain != expected.AdverterDomain {
-		t.Errorf("Expected Adverter Domain to be [%s] but recieved [%s]", expected.AdverterDomain, r.AdverterDomain)
+		t.Errorf("Expected Adverter Domain to be [%s] but received [%s]", expected.AdverterDomain, r.AdverterDomain)
 	}
 	if r.PublisherAccountID != expected.PublisherAccountID {
-		t.Errorf("Expected Publisher Account Id to be [%s] but recieved [%s]", expected.PublisherAccountID, r.PublisherAccountID)
+		t.Errorf("Expected Publisher Account Id to be [%s] but received [%s]", expected.PublisherAccountID, r.PublisherAccountID)
 	}
 	if r.AccountType != expected.AccountType {
-		t.Errorf("Expected Account Type to be [%s] but recieved [%s]", expected.AccountType, r.AccountType)
+		t.Errorf("Expected Account Type to be [%s] but received [%s]", expected.AccountType, r.AccountType)
 	}
 	if r.CertAuthorityID != expected.CertAuthorityID {
-		t.Errorf("Expected Account Type to be [%s] but recieved [%s]", expected.CertAuthorityID, r.CertAuthorityID)
+		t.Errorf("Expected Account Type to be [%s] but received [%s]", expected.CertAuthorityID, r.CertAuthorityID)
 	}
 }
 
-// TestParseSubDomainVarialbe test parsing subdomain Variable type
-func TestParseSubDomainVarialbe(t *testing.T) {
+// TestParseSubDomainVariable test parsing subdomain Variable type
+func TestParseSubDomainVariable(t *testing.T) {
 	subdomain := "subdomain=dev.example.com"
 
-	v, w := parseVarialbe(subdomain)
+	v, w := parseVariable(subdomain)
 	if w != nil {
 		t.Errorf("Expected no errors when parsing [%s] [%v]", subdomain, w)
 	}
 	if v.Type != varTypeSubdomain {
-		t.Errorf("Expected variable type for [%s] to be [%s] but recieved [%s]", subdomain, varTypeSubdomain, v.Type)
+		t.Errorf("Expected variable type for [%s] to be [%s] but received [%s]", subdomain, varTypeSubdomain, v.Type)
 	}
 	if v.Value != "dev.example.com" {
-		t.Errorf("Expected variable value for [%s] to be [dev.example.com] but recieved [%s]", subdomain, v.Value)
+		t.Errorf("Expected variable value for [%s] to be [dev.example.com] but received [%s]", subdomain, v.Value)
 	}
 }
 
-// TestParseContactVarialbe test parsing contact Variable type
-func TestParseContactVarialbe(t *testing.T) {
-	contact := "contact=tzafrir@example.com"
+// TestParseContactVariable test parsing contact Variable type
+func TestParseContactVariable(t *testing.T) {
+	contact := "contact=test@example.com"
 
-	v, w := parseVarialbe(contact)
+	v, w := parseVariable(contact)
 	if w != nil {
 		t.Errorf("Expected no errors when parsing [%s] [%v]", contact, w)
 	}
 	if v.Type != varTypeContact {
-		t.Errorf("Expected variable type for [%s] to be [%s] but recieved [%s]", contact, varTypeContact, v.Type)
+		t.Errorf("Expected variable type for [%s] to be [%s] but received [%s]", contact, varTypeContact, v.Type)
 	}
-	if v.Value != "tzafrir@example.com" {
-		t.Errorf("Expected variable value for [%s] to be [tzafrir@example.com] but recieved [%s]", contact, v.Value)
+	if v.Value != "test@example.com" {
+		t.Errorf("Expected variable value for [%s] to be [test@example.com] but received [%s]", contact, v.Value)
 	}
 }
 
-// TestParseNotSupportedVarialble test parsing not supported Varialble type
-func TestParseNotSupportedVarialble(t *testing.T) {
+// TestParseNotSupportedVariable test parsing not supported Variable type
+func TestParseNotSupportedVariable(t *testing.T) {
 	notSupported := "notSupported=dev.example.com"
 
-	v, w := parseVarialbe(notSupported)
+	v, w := parseVariable(notSupported)
 	if w == nil {
 		t.Errorf("Expected parsing error when parsing [%s]", notSupported)
 	}
@@ -274,7 +274,7 @@ func TestParseNotSupportedVarialble(t *testing.T) {
 		t.Errorf("Expected parsing error when parsing [%s] and empty variable [%v]", notSupported, v)
 	}
 	if w.Message != "[notSupported] is not a valid Variable type" {
-		t.Errorf("Expected error type for [%s] to be [%s] but recieved [%v]", notSupported, "[notSupported] is not a valid Variable type", w)
+		t.Errorf("Expected error type for [%s] to be [%s] but received [%v]", notSupported, "[notSupported] is not a valid Variable type", w)
 	}
 }
 

@@ -18,8 +18,8 @@ var adSystems map[int]*adSystem
 // "ID" is a foreign key referencing the ad system's ID from the "adsystem" table
 var adSystemDomains map[string]*adSystemDomain
 
-// normalizeMaappingURL holds list of Ads.txt known advertising systems
-const normalizeMaappingURL = "https://wiki.iabtechlab.com/index.php?title=Ads.txt_Normalization_Mappings"
+// normalizeMappingURL holds list of Ads.txt known advertising systems
+const normalizeMappingURL = "https://wiki.iabtechlab.com/index.php?title=Ads.txt_Normalization_Mappings"
 
 func init() {
 	adSystems = map[int]*adSystem{

@@ -19,7 +19,7 @@ const (
 // parsing error\warning: each error includes Ads.txt remote host (domain level) and explanaiton about the error
 const (
 	errFailToParseRedirect       = "[%s] failed to parse root domain from HTTP redirect response header. Ads.txt URL [%s] redirect [%s] error [%s]"
-	errRedirctToInvalidAdsTxt    = "[%s] failed to get Ads.txt file, redirect from [%s] to invalid Ads.txt URL [%s]"
+	errRedirectToInvalidAdsTxt   = "[%s] failed to get Ads.txt file, redirect from [%s] to invalid Ads.txt URL [%s]"
 	errRedirectToDifferentDomain = "Only single redirect out of original root domain scope [%s] is allowed. Additional redirect from [%s] to [%s] is forbidden"
 )
 
@@ -73,26 +73,26 @@ func (c *crawler) sendRequest(req *Request) (*http.Response, error) {
 	return res, nil
 }
 
-// handle HTTP redirect resonse: parse new redirect destination from HTTP response header
+// handle HTTP redirect response: parse new redirect destination from HTTP response header
 func (c *crawler) handleRedirect(req *Request, res *http.Response) (string, error) {
 	redirect := res.Header.Get("Location")
 
 	log.Printf("[%s]: redirect from [%s] to [%s]", res.Status, req.URL, redirect)
 
-	// Check if redirect destination has the same root domain as the reguest initial root doamin.
+	// Check if redirect destination has the same root domain as the request initial root doamin.
 	d, err := rootDomain(redirect)
 	if err != nil {
 		return "", fmt.Errorf(errFailToParseRedirect, req.Domain, req.URL, redirect, err.Error())
 	}
 
-	// According to IAB's ads.txt specification, section 3.1 "ACCESS METHOD":
+	// According to IAB ads.txt specification, section 3.1 "ACCESS METHOD":
 	// "If the server response indicates an HTTP/HTTPS redirect (301, 302, 307 status codes),
 	// the advertising system should follow the redirect and consume the data as authoritative for the source of the redirect,
 	// if and only if the redirect is within scope of the original root domain as defined above.
 	// Multiple redirects are valid as long as each redirect location remains within the original root domain."
 	if d != req.Domain {
 		// If redirect to different domain, check that this is the first redirect to different domain
-		// According to IAB's ads.txt specification, section 3.1 "ACCESS METHOD":
+		// According to IAB ads.txt specification, section 3.1 "ACCESS METHOD":
 		// "Only a single HTTP redirect to a destination outside the original root domain is allowed to
 		// facilitate one-hop delegation of authority to a third party's web server domain."
 		prevDomain, _ := rootDomain(req.URL)
@@ -103,7 +103,7 @@ func (c *crawler) handleRedirect(req *Request, res *http.Response) (string, erro
 
 	// make sure redirects takes us to another Ads.txt file and not just to home page
 	if !strings.HasSuffix(redirect, "/ads.txt") {
-		return "", fmt.Errorf(errRedirctToInvalidAdsTxt, req.Domain, req.URL, redirect)
+		return "", fmt.Errorf(errRedirectToInvalidAdsTxt, req.Domain, req.URL, redirect)
 	}
 
 	return redirect, nil

@@ -41,7 +41,7 @@ func TestSendAndParseRquest(t *testing.T) {
 	}
 }
 
-// TestHandleRedirect test crawler handle HTTP redirect response: extract new redirect destination from HTTP resposne
+// TestHandleRedirect test crawler handle HTTP redirect response: extract new redirect destination from HTTP response
 func TestHandleRedirect(t *testing.T) {
 	const redirect = "http://gotest.com/ads.txt"
 
